@@ -9,6 +9,8 @@ import CustomSnack from "./CustomSnack";
 import { updateMobile } from "../firebase.util";
 
 function Details({ setMode }) {
+  const [message, setMessage] = useState("Logged out succesfully");
+  const [error, setError] = useState(false);
   const user = useSelector(selectUser);
   const dispatch = useDispatch();
 
@@ -23,6 +25,7 @@ function Details({ setMode }) {
 
   const logOut = async () => {
     dispatch(setSignOut());
+    setMessage("Logged Out successfully");
     handleOpen();
     setTimeout(() => {
       setMode(1);
@@ -31,7 +34,14 @@ function Details({ setMode }) {
 
   const update = async () => {
     if (user.mobileNo) return;
+    const mobileReg = /^[0-9]{10}$/;
+    if (!mobileReg.test(value)) {
+      setMessage("Invalid Mobile No");
+      setError((prev) => !prev);
+      return;
+    }
     await updateMobile(user.id, value);
+    setMessage("Updated Sucessfully");
     handleOpen((prev) => !prev);
   };
   return (
@@ -65,13 +75,10 @@ function Details({ setMode }) {
           className="w-[100%] md:w-[80%] bg-blueBg px-4 py-3 border-none text-white font-semibold rounded-sm"
           onClick={update}
         >
-          {user.isLoggedIn ? "Logged IN" : "Done"}
+          Done
         </button>
-        <CustomSnack
-          open={open}
-          setOpen={setOpen}
-          message={"Log Out Sucessfully"}
-        />
+        <CustomSnack open={open} setOpen={setOpen} message={message} />
+        <CustomSnack open={error} setOpen={setError} message={message} fail />
       </div>
     </div>
   );
