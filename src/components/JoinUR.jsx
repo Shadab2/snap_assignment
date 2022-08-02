@@ -27,10 +27,12 @@ function JoinUR({ setMode }) {
 
   const signUpWithEmail = async () => {
     const { password, confirmPassword, displayName, mobileNo } = state;
+    const mobileReg = /[2-9]{2}\d{8}/;
     if (
       password.length < 4 ||
       displayName.length < 3 ||
-      password !== confirmPassword
+      password !== confirmPassword ||
+      !mobileReg.test(mobileNo)
     ) {
       setError((prev) => !prev);
       return;
