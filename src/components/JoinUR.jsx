@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { selectUser } from "../redux/userSlice";
 import { useSelector } from "react-redux/es/exports";
-import { auth, createUserProfileDocument, hasAccount } from "../firebase.util";
+import { auth, createUserProfileDocument } from "../firebase.util";
 import FormInput from "./FormInput";
 import CustomSnack from "./CustomSnack";
 
@@ -51,29 +51,24 @@ function JoinUR({ setMode }) {
     }
   };
 
-  useEffect(() => {
-    async function get() {
-      const user = await hasAccount(email);
-      if (user) {
-        setMode(3);
-      }
-    }
-    get();
-  }, []);
   return (
-    <div className="bg-white flex-1 md:min-w-[400px]">
-      <div className="m-[10%] md:m-[16%] flex flex-col items-center  gap-10">
-        <div className="w-[80%] flex flex-col gap-1 -mb-[10px] justify-center">
-          <h1 className=" text-gray-700 font-bold text-4xl">Join Ureify</h1>
+    <div className="bg-white flex-1 ">
+      <div className="flex flex-col h-[80vh] md:h-full items-center justify-center gap-5 mx-4">
+        <div className="w-[100%] md:w-[80%] flex flex-col gap-1  mb-[5px] justify-center">
+          <h1 className=" text-gray-700 font-bold text-2xl md:text-4xl mt-4 text-center md:text-left">
+            Join Ureify
+          </h1>
           <span className="text-[rgba(33, 37, 41, 0.7)] font-light text-sm md:text-base">
             Your email :
-            <span className="text-[#FB5607] font-medium">{email}</span>
+            <span className="text-[#007FFF] md:text-[#FB5607] font-medium">
+              {email}
+            </span>
           </span>
         </div>
         <FormInput
           name="displayName"
           type="text"
-          placeholder="Enter  your name"
+          placeholder="Enter your name"
           onChange={handleChange}
         />
         <FormInput
@@ -96,7 +91,7 @@ function JoinUR({ setMode }) {
           onChange={handleChange}
         />
         <button
-          className="w-[100%] md:w-[80%] bg-blueBg px-4 py-3 border-none text-white font-semibold rounded-sm"
+          className="w-[100%] md:w-[80%] bg-blueBg px-4 py-3 border-none text-white font-semibold rounded-[5px]"
           onClick={signUpWithEmail}
         >
           Continue

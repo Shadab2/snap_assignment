@@ -8,6 +8,7 @@ const initialState = {
   photoURL: "",
   isLoggedIn: false,
   mobileNo: "",
+  modalOpen: true,
 };
 
 const userSlice = createSlice({
@@ -21,6 +22,7 @@ const userSlice = createSlice({
         photoURL: action.payload.photoURL,
         id: action.payload.id,
         mobileNo: action.payload.mobileNo,
+        modalOpen: true,
         isLoggedIn: true,
       };
     },
@@ -36,6 +38,14 @@ const userSlice = createSlice({
       ...state,
       email: action.payload.mobileNo,
     }),
+    openModal: (state) => ({
+      ...state,
+      modalOpen: true,
+    }),
+    closeModal: (state) => ({
+      ...state,
+      modalOpen: false,
+    }),
     reset: () => initialState,
   },
 });
@@ -46,6 +56,8 @@ export const {
   setEmail,
   setMobileNo,
   reset,
+  openModal,
+  closeModal,
 } = userSlice.actions;
 //full stores state is passed in
 export const selectUser = (state) => state.user;

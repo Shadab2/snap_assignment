@@ -9,7 +9,7 @@ function FormInput({ type, isMobile, ...otherProps }) {
     else setPasswordType("text");
   };
   return (
-    <div className="px-4 py-3 w-[100%] md:w-[80%] flex justify-center relative border border-[#a6a5a5] rounded-m">
+    <div className="px-4 py-3 w-[100%] md:w-[80%] flex justify-center relative border border-[#B3B3B3] rounded-[5px] ">
       {isMobile && (
         <div className="flex items-center ">
           <p className="mr-1">+91</p>
@@ -20,7 +20,7 @@ function FormInput({ type, isMobile, ...otherProps }) {
       <input
         type={type === "password" ? passwordType : type}
         {...otherProps}
-        className="w-[100%] placeholder:font-light placeholder:text-gray-400 outline-none focus:outline-none "
+        className="w-[100%] placeholder:font-[400] placeholder:text-[#98A2B3] outline-none focus:outline-none "
       />
       {type === "password" && (
         <span

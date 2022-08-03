@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { useDispatch } from "react-redux";
-import { signInWithGoogle } from "../firebase.util";
+import { hasAccount, signInWithGoogle } from "../firebase.util";
 import CustomSnack from "./CustomSnack";
 import FormInput from "./FormInput";
 import { setEmail } from "../redux/userSlice";
@@ -22,34 +22,39 @@ function Welcome({ setMode }) {
     }, 3000);
   };
 
-  const loginWithEmail = () => {
+  const loginWithEmail = async () => {
     const mail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     if (value === "" || !mail.test(value)) {
       setError((prev) => !prev);
       return;
     }
-    dispatch(setEmail({ email: value }));
-    setMode(2);
+    try {
+      dispatch(setEmail({ email: value }));
+      const oldUser = await hasAccount(value);
+      if (oldUser) setMode(3);
+      else setMode(2);
+    } catch (e) {}
   };
   return (
-    <div className="bg-white flex-1 md:min-w-[400px]">
-      <div className="m-[10%] md:m-[16%] flex flex-col items-center  gap-10">
+    <div className="bg-white flex-1 md:mt-4">
+      <div className="flex flex-col items-center h-[80vh] w-[90vw] md:w-[auto] justify-center md:h-full gap-9 px-4">
         <div className="w-full flex justify-center">
-          <h1 className="w-[80%] text-gray-700 font-bold text-4xl">
+          <h1 className="w-[80%] text-gray-700 font-bold text-2xl md:text-4xl text-center">
             Welcome to Ureify
           </h1>
         </div>
         <button
-          className="px-4 py-3 shadow-md w-[100%] md:w-[80%] flex items-center justify-center border border-[#ECEDEF] rounded-sm"
+          style={{ boxShadow: "0px 2px 9px rgba(0, 0, 0, 0.1)" }}
+          className="px-4 py-3 w-[100%] md:w-[80%] flex items-center justify-center  border-[#ECEDEF] rounded-[6px]"
           onClick={login}
         >
           <FcGoogle className="mr-1 md:mr-4 " size={24} />
           Continue with Google
         </button>
-        <div className="flex w-[100%] md:w-[80%] items-center justify-between">
-          <div className="h-[2px] w-[45%] bg-[#ECEDEF]"></div>
+        <div className="flex w-[100%] md:w-[80%] items-center justify-between ">
+          <div className="h-[2px] w-[40%] bg-[#ECEDEF]"></div>
           <p>Or</p>
-          <div className="h-[2px] w-[45%] bg-[#ECEDEF]"></div>
+          <div className="h-[2px] w-[40%] bg-[#ECEDEF]"></div>
         </div>
         <FormInput
           type="email"
@@ -58,15 +63,16 @@ function Welcome({ setMode }) {
           onChange={(e) => setValue(e.target.value)}
         />
         <button
-          className="w-[100%] md:w-[80%] bg-blueBg px-4 py-3 border-none text-white font-semibold rounded-sm"
+          className="w-[100%] md:w-[80%] bg-blueBg px-4 py-3 border-none text-white font-semibold rounded-[4px]"
           onClick={loginWithEmail}
         >
           Continue
         </button>
-        <p className="text-[12px] font-light w-[80%] text-center -mt-4">
-          By proceeding, I agree to <strong>{"T&C "}</strong>
+        <p className="text-[12px] font-[400] w-full md:w-[80%] text-center -mt-6 md:-mt-4 text-[#7C7E8C]">
+          By proceeding, I agree to{" "}
+          <span className="font-[600] text-[#44475B]">{"T&C "}</span>
           and
-          <strong> Privacy Policy</strong>
+          <span className="font-[600] text-[#44475B]"> Privacy Policy</span>
         </p>
       </div>
       <CustomSnack
