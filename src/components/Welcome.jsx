@@ -5,6 +5,7 @@ import { hasAccount, signInWithGoogle } from "../firebase.util";
 import CustomSnack from "./CustomSnack";
 import FormInput from "./FormInput";
 import { setEmail } from "../redux/userSlice";
+import Back from "./Back";
 
 function Welcome({ setMode }) {
   const [open, setOpen] = React.useState(false);
@@ -37,7 +38,8 @@ function Welcome({ setMode }) {
   };
   return (
     <div className="bg-white flex-1 md:mt-4">
-      <div className="flex flex-col items-center h-[80vh] w-[90vw] md:w-[auto] justify-center md:h-full gap-9 px-4">
+      <div className="relative flex flex-col items-center h-[80vh] w-[90vw] md:w-[auto] justify-center md:h-full gap-9 px-4 ">
+        <Back />
         <div className="w-full flex justify-center">
           <h1 className="w-[80%] text-gray-700 font-bold text-2xl md:text-4xl text-center">
             Welcome to Ureify

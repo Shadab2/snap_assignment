@@ -7,6 +7,7 @@ import { auth } from "../firebase.util";
 
 import FormInput from "./FormInput";
 import CustomSnack from "./CustomSnack";
+import Back from "./Back";
 
 function WelcomeBack({ setMode }) {
   const user = useSelector(selectUser);
@@ -46,6 +47,7 @@ function WelcomeBack({ setMode }) {
   };
   return (
     <div className="bg-white flex-1 relative ">
+      <Back />
       {user.isLoggedIn && (
         <div
           className="font-light bg-blueBg text-white px-5 py-2 absolute bottom-10 right-0 md:top-10 md:bottom-auto cursor-pointer"

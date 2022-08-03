@@ -4,6 +4,7 @@ import { useSelector } from "react-redux/es/exports";
 import { auth, createUserProfileDocument } from "../firebase.util";
 import FormInput from "./FormInput";
 import CustomSnack from "./CustomSnack";
+import Back from "./Back";
 
 function JoinUR({ setMode }) {
   const { email } = useSelector(selectUser);
@@ -52,8 +53,9 @@ function JoinUR({ setMode }) {
   };
 
   return (
-    <div className="bg-white flex-1 ">
-      <div className="flex flex-col h-[80vh] md:h-full items-center justify-center gap-5 mx-4">
+    <div className="bg-white flex-1 relative ">
+      <Back />
+      <div className="flex flex-col h-[80vh] md:h-full items-center justify-center gap-5 mx-4 ">
         <div className="w-[100%] md:w-[80%] flex flex-col gap-1  mb-[5px] justify-center">
           <h1 className=" text-gray-700 font-bold text-2xl md:text-4xl mt-4 text-center md:text-left">
             Join Ureify

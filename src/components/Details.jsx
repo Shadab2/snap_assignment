@@ -7,6 +7,7 @@ import { selectUser } from "../redux/userSlice";
 import FormInput from "./FormInput";
 import CustomSnack from "./CustomSnack";
 import { updateMobile } from "../firebase.util";
+import Back from "./Back";
 
 function Details({ setMode }) {
   const [message, setMessage] = useState("Logged out succesfully");
@@ -48,6 +49,7 @@ function Details({ setMode }) {
   };
   return (
     <div className="bg-white flex-1 relative">
+      <Back />
       <div
         className="font-light bg-blueBg text-white px-5 py-2 absolute bottom-20 right-0 md:top-10 md:bottom-auto cursor-pointer"
         onClick={logOut}
@@ -80,7 +82,7 @@ function Details({ setMode }) {
           className="w-[100%] md:w-[80%] bg-blueBg px-4 py-3 border-none text-white font-semibold rounded-[5px]"
           onClick={update}
         >
-          {user.mobileNo ? "Update " : "Done"}
+          {user.mobileNo === "" ? "Update " : "Done"}
         </button>
         <CustomSnack open={open} setOpen={setOpen} message={message} />
         <CustomSnack open={error} setOpen={setError} message={message} fail />
